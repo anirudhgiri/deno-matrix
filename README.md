@@ -7,7 +7,7 @@ deno-matrix is a lightweight deno library to handle matrices.
 
 Use the `deno.land` URL service to import the module
 ```ts
-import {Matrix} from 'https://deno.land/x/deno-matrix/mod.ts'
+import {Matrix} from 'https://deno.land/x/deno_matrix/mod.ts'
 ```
 
 ## Example
