@@ -1,1 +1,1 @@
-export {Matrix} from './src/Matrix';
+export {Matrix} from './src/Matrix.ts';
