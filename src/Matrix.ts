@@ -1,3 +1,5 @@
+import {MatrixMismatchError} from './MatrixMismatchError.ts';
+
 export class Matrix{
     rows: number;
     cols: number;
@@ -62,8 +64,11 @@ export class Matrix{
      * @param addend The addend number/matrix
      */
     add(addend: number | Matrix){
-        if(addend instanceof Matrix)
-            this.funcMap((i: number,j: number,val: number) => val + addend.matrix[i][j])
+        if(addend instanceof Matrix){
+            if(this.rows != addend.rows || this.cols != addend.cols)
+                throw new MatrixMismatchError("Incompatible matrices. Cannot add two matrices of different sizes")
+            this.funcMap((i: number,j: number,val: number) => val + addend.matrix[i][j]);
+        }
         else
             this.funcMap((i: number,j: number,val: number) => val + addend);        
     }
@@ -73,8 +78,11 @@ export class Matrix{
      * @param subtrahend The subtrahend matrix 
      */
     subtract(subtrahend: number | Matrix){
-        if(subtrahend instanceof Matrix)
+        if(subtrahend instanceof Matrix){
+            if(this.rows != subtrahend.rows || this.cols != subtrahend.cols)
+                throw new MatrixMismatchError("Incompatible matrices. Cannot subtract two matrices of different sizes")
             this.funcMap((i: number,j: number,val: number) => val - subtrahend.matrix[i][j]);
+        }
         else
             this.funcMap((i: number,j: number,val: number) => val - subtrahend);
     }
@@ -84,6 +92,8 @@ export class Matrix{
      * @param multiplicand The multiplicand matrix
      */
     hadamard(multiplicand: Matrix){
+        if(this.rows != multiplicand.rows || this.cols != multiplicand.cols)
+            throw new MatrixMismatchError("Incompatible matrices. Cannot multiply two matrices of different sizes")
         this.funcMap((i: number,j: number,val: number) => val * multiplicand.matrix[i][j]);
     }
 
@@ -93,6 +103,8 @@ export class Matrix{
      * @param multiplier The multiplier matrix
      */
     static multiply(multiplicand: Matrix, multiplier : Matrix){
+        if(multiplicand.cols != multiplier.rows)
+            throw new MatrixMismatchError("Incompatible matrices. Number of columns in the multiplicand matrix must equal the number of rows of the multiplier matrix")
         return new Matrix(multiplicand.rows, multiplier.cols).funcMap((i: number,j: number,val: number) => {
             let sum = 0;
             for(let k = 0; k < multiplicand.cols; k++)
