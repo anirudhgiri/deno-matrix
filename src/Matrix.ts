@@ -54,7 +54,7 @@ export class Matrix{
      * Converts the current matrix into an identity matrix
      */
     toIdentityMatrix(){
-        this.funcMap((i,j) => i == j ? 1 : 0);
+        this.funcMap((i: number,j: number) => i == j ? 1 : 0);
     }
 
     /**
@@ -63,9 +63,9 @@ export class Matrix{
      */
     add(addend: number | Matrix){
         if(addend instanceof Matrix)
-            this.funcMap((i,j,val) => val + addend.matrix[i][j])
+            this.funcMap((i: number,j: number,val: number) => val + addend.matrix[i][j])
         else
-            this.funcMap((i,j,val) => val + addend);        
+            this.funcMap((i: number,j: number,val: number) => val + addend);        
     }
 
     /**
@@ -74,9 +74,9 @@ export class Matrix{
      */
     subtract(subtrahend: number | Matrix){
         if(subtrahend instanceof Matrix)
-            this.funcMap((i,j,val) => val - subtrahend.matrix[i][j]);
+            this.funcMap((i: number,j: number,val: number) => val - subtrahend.matrix[i][j]);
         else
-            this.funcMap((i,j,val) => val - subtrahend);
+            this.funcMap((i: number,j: number,val: number) => val - subtrahend);
     }
 
     /**
@@ -84,7 +84,7 @@ export class Matrix{
      * @param multiplicand The multiplicand matrix
      */
     hadamard(multiplicand: Matrix){
-        this.funcMap((i,j,val) => val * multiplicand[i][j]);
+        this.funcMap((i: number,j: number,val: number) => val * multiplicand.matrix[i][j]);
     }
 
     /**
@@ -93,7 +93,7 @@ export class Matrix{
      * @param multiplier The multiplier matrix
      */
     static multiply(multiplicand: Matrix, multiplier : Matrix){
-        return new Matrix(multiplicand.rows, multiplier.cols).funcMap((i,j,val) => {
+        return new Matrix(multiplicand.rows, multiplier.cols).funcMap((i: number,j: number,val: number) => {
             let sum = 0;
             for(let k = 0; k < multiplicand.cols; k++)
                 sum += multiplicand.matrix[i][k] * multiplier.matrix[k][j];
@@ -109,7 +109,7 @@ export class Matrix{
         if(multiplier instanceof Matrix)
             this.hadamard(multiplier);
         else
-            this.funcMap((i,j,val) => val * multiplier);
+            this.funcMap((i: number,j: number,val: number) => val * multiplier);
     }
 
     /**
