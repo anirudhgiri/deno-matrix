@@ -28,7 +28,7 @@ export class Matrix{
     randomize(lower: number = 0, upper: number = 1){
         for(let i = 0; i < this.rows; i++)
             for(let j = 0; j < this.cols; j++)
-                this.matrix[i][j] = lower + (upper-lower) * Math.random();
+                this.matrix[i][j] = lower + ((upper-lower) * Math.random());
     }
 
     /**
