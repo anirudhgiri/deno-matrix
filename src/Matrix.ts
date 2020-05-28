@@ -21,6 +21,16 @@ export class Matrix{
     }
 
     /**
+     * creates a copy of a Matrix
+     * @param copyMatrix The matrix to be copied
+     */
+    static copy(copyMatrix:Matrix){
+        let result = new Matrix(copyMatrix.rows, copyMatrix.cols);
+        result.funcMap((i:number,j:number) => copyMatrix.matrix[i][j]);
+        return result;
+    }
+
+    /**
      * Fills all elements of the matrix with a random number between the lower and upper bounds (0 and 1 by default)
      * @param lower lower bound(inclusive)
      * @param upper upper bound(exlusive)
@@ -148,6 +158,7 @@ export class Matrix{
      * @param input The matrix to be transposed
      */
     static transpose(input: Matrix){
-        return input.transpose();
+        let transposed = Matrix.copy(input);
+        return transposed.transpose();
     }
 }
