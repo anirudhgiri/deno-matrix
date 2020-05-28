@@ -102,15 +102,19 @@ export class Matrix{
      * @param multiplicand The multiplicand matrix
      * @param multiplier The multiplier matrix
      */
-    static multiply(multiplicand: Matrix, multiplier : Matrix){
+    static multiply(multiplicand: Matrix, multiplier : Matrix): Matrix{
         if(multiplicand.cols != multiplier.rows)
             throw new MatrixMismatchError("Incompatible matrices. Number of columns in the multiplicand matrix must equal the number of rows of the multiplier matrix")
-        return new Matrix(multiplicand.rows, multiplier.cols).funcMap((i: number,j: number,val: number) => {
+        
+        let product = new Matrix(multiplicand.rows, multiplier.cols);
+        product.funcMap((i: number,j: number,val: number) => {
             let sum = 0;
             for(let k = 0; k < multiplicand.cols; k++)
                 sum += multiplicand.matrix[i][k] * multiplier.matrix[k][j];
             return sum;
-        })
+        });
+        
+        return product;
     }
 
     /**
