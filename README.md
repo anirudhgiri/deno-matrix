@@ -37,7 +37,7 @@ m3.print(); //print Matrix to console
 
 let identity_matrix = new Matrix(3,3).toIdentityMatrix(); //Identity matrix creation
 
-let identity_matrix = new Matrix(3,3).toZeroMatrix(); //Zero matrix creation
+let zero_matrix = new Matrix(3,3).toZeroMatrix(); //Zero matrix creation
 ```
 
 ## Contributing
