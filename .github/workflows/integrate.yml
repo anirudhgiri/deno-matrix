@@ -1,0 +1,16 @@
+name: ci
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test_pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: setup deno
+        uses: denolib/setup-deno@master
+        with:
+          deno-version: 1.0.2
+      - run: deno test
