@@ -1,13 +1,25 @@
-import {MatrixMismatchError} from './MatrixMismatchError.ts';
+import {MatrixMismatchError, InvalidMatrixError} from './errors.ts';
 
 export class Matrix{
     rows: number;
     cols: number;
     matrix : number[][];
-    constructor(rows: number, cols: number){
-        this.rows = rows;
-        this.cols = cols;
-        this.matrix = Array(this.rows).fill(null).map(()=>Array(this.cols).fill(0));
+    constructor(input: number | number[][], cols: number = -1){
+        if(typeof input == "number"){
+            this.rows = input;
+            this.cols = cols;
+            this.matrix = Array(this.rows).fill(null).map(()=>Array(this.cols).fill(0));
+        }
+        else{
+            this.rows = input.length;
+            this.cols = input[0].length;
+            this.matrix = input;
+            this.matrix.forEach((row) => {
+                if(row.length != this.cols)
+                    throw new InvalidMatrixError("Invalid Matrix. All rows in the matrix should have the same number of columns");
+            });
+        }
+        return this;
     }
 
     /**
