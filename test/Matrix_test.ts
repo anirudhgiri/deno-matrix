@@ -1,7 +1,9 @@
 import { Matrix } from '../mod.ts';
-import { assertEquals } from "https://deno.land/std@0.53.0/testing/asserts.ts";
+import { assertEquals, assertThrows } from "https://deno.land/std@0.53.0/testing/asserts.ts";
 
-Deno.test("matrix creation", () => {
+import { InvalidMatrixError } from "../src/errors.ts";
+
+Deno.test("matrix creation (rows,cols)", () => {
     let rows = Math.round(Math.random()*10);
     let cols = Math.round(Math.random()*10);
 
@@ -11,6 +13,23 @@ Deno.test("matrix creation", () => {
 
     myMatrix.matrix.forEach(row => row.forEach(value => assertEquals(value,0)));
 });
+
+Deno.test("matrix creation (matrix)", () =>{
+    let arr = [
+        [1,2,3],
+        [4,5,6],
+        [7,8,9]
+    ];
+    let myMatrix = new Matrix(arr);
+    assertEquals(myMatrix.rows , 3);
+    assertEquals(myMatrix.cols , 3);
+    assertEquals(myMatrix.matrix, arr);
+
+    assertThrows(() => {
+        arr.push([1,2,3,4]);
+        myMatrix = new Matrix(arr);
+    }, InvalidMatrixError);
+})
 
 Deno.test("funcMap", ()=> {
     let m1 = new Matrix(2,2);
