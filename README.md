@@ -1,8 +1,9 @@
 ![deno-matrix logo](https://i.imgur.com/pnSUkZt.png)
+
+![ci](https://github.com/anirudhgiri/deno-matrix/workflows/ci/badge.svg)
 # deno-matrix
 
 deno-matrix is a lightweight deno library to handle matrices.
-
 ## Installation
 
 Use the `deno.land` URL service to import the module
@@ -12,6 +13,19 @@ import {Matrix} from 'https://deno.land/x/deno_matrix/mod.ts'
 
 ## Example
 
+### Creating Matrices
+```ts
+let m1 = new Matrix(3,3);
+m1.print(); // 3x3 matrix filled with zeroes
+
+let arr = [
+  [1,2,3],
+  [4,5,6],
+  [7,8,9]
+];
+let m2 = new Matrix(arr); //3x3 matrix with values of array arr
+```
+### Matrix Operations
 ```ts
 let m1 = new Matrix(3,3); // 3x3 Matrix creation
 m1.randomize(); //fill Matrix with random values between 0-1
